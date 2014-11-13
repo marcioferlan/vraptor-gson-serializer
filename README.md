@@ -5,18 +5,18 @@ It's basically an annotation to tell VRaptor to serialize your method's return t
 Instead of writing something like:
 
 ```java
-    public void list(){
-        result.use(Results.json()).withoutRoot().from(dao.findAll()).recursive().serialize();
-    }
+public void list(){
+    result.use(Results.json()).withoutRoot().from(dao.findAll()).recursive().serialize();
+}
 ```
 
 You just annotate the method with @Json and let it return your Java objects, like:
 
 ```java
-	@Json
-	public List<Person> list(){
-		return dao.findAll();
-	}
+@Json
+public List<Person> list(){
+	return dao.findAll();
+}
 ```
 
 ## INSTALATION
