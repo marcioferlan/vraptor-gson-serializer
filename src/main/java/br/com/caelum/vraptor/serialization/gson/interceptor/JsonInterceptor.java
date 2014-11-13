@@ -21,13 +21,6 @@ public class JsonInterceptor implements Interceptor {
 	@Inject
 	private Result result;
 
-	public void intercept() {
-	}
-
-	private String[] excludedFieldsNames(ControllerMethod method) {
-		return method.getMethod().getAnnotation(Json.class).exclude();
-	}
-
 	@Override
 	public boolean accepts(ControllerMethod method) {
 		return method.containsAnnotation(Json.class);
@@ -38,6 +31,10 @@ public class JsonInterceptor implements Interceptor {
 	public void intercept(InterceptorStack stack, ControllerMethod method, Object obj) throws InterceptionException {
 		stack.next(method, obj);
 		result.use(Results.json()).withoutRoot().from(info.getResult()).exclude(excludedFieldsNames(method)).recursive().serialize();
+	}
+
+	private String[] excludedFieldsNames(ControllerMethod method) {
+		return method.getMethod().getAnnotation(Json.class).exclude();
 	}
 
 }
