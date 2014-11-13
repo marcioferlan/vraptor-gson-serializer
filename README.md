@@ -1,6 +1,19 @@
 ## ABOUT
 
-VRaptor uses Xstream to serialize JSON from controllers, we don't like Xstream.
+It's basically an annotation to tell VRaptor to serialize your method's return to JSON format.
+
+Instead of writing something like:
+
+	public void list(){
+		result.use(Results.json()).withoutRoot().from(dao.findAll()).recursive().serialize();
+	}
+
+You just annotate the method with @Json and let it return your Java objects, like:
+
+	@Json
+	public List<Person> list(){
+		return dao.findAll();
+	}
 
 ## INSTALATION
 
@@ -10,17 +23,14 @@ VRaptor uses Xstream to serialize JSON from controllers, we don't like Xstream.
 
 ## CONFIGURATION
 
-1. Add the dependency to your project
-2. Add this to your web.xml:
-
-```xml
-        <context-param>
-            <param-name>br.com.caelum.vraptor.packages</param-name>
-            <param-value> br.com.caelum.vraptor.serialization.gson</param-value>
-        </context-param>
-```
+1. No configuration needed.
 
 ## CHANGES
+
+### 0.6.0
+
+* Plugin ported to VRaptor 4.x
+
 
 ### 0.5.0
 
