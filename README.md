@@ -31,10 +31,41 @@ public List<Person> list(){
 
 ## CHANGES
 
+### 0.6.1
+
+* Ability to tell exactly which fields should be serialized (excludes all others)
+
+```java
+    @Resource
+    public class CustomerController {
+
+        @Json(fields = CustomerFields.class) @Get("/customer/byName")
+        public List<Customer> findByName(String name){
+            return Arrays.asList(customers.findByName(name));
+        }
+    }
+```
+
+Where CustomerFields class would look something like:
+
+```java
+    public class CustomerFields extends extends JsonFields {
+
+		@Override
+		public String[] includes() {
+			return new String[] { 
+				"name",            // simple property
+				"address.street",  // object property
+				"phones.number"    // list-of-objects property
+			}; 
+		}
+    }
+```
+
+
 ### 0.6.0
 
 * Plugin ported to VRaptor 4.x
-
 
 ### 0.5.0
 
